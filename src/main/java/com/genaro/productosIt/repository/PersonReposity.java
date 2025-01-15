@@ -7,49 +7,33 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
-public class PersonReposity implements RepositoryI<Person> {
-    private final ArrayList<Person> persons = new ArrayList<>();
-
-    @Override
-    public Person save(Person entity) {
-
-        entity.setId(Person.getNewId());
-
-        persons.add(entity);
-
-        return entity;
-    }
-
-    @Override
-    public void delete(Person entity) {
-        persons.remove(entity);
-    }
+public class PersonReposity extends AbstractRepository<Person> {
 
     @Override
     public ArrayList<Person> find(Person query) {
-        return persons.stream().filter(person -> {
+        return super.entities.stream().filter(person -> {
 
-            if(query.getId() != null && !query.getId().equals(person.getId())) {
+            if (query.getId() != null && !query.getId().equals(person.getId())) {
                 return false;
             }
 
-            if(query.getName() != null && !person.getName().toLowerCase().contains(query.getName().toLowerCase())) {
+            if (query.getName() != null && !person.getName().toLowerCase().contains(query.getName().toLowerCase())) {
                 return false;
             }
 
-            if(query.getLastName() != null && !person.getLastName().toLowerCase().contains(query.getLastName().toLowerCase())) {
+            if (query.getLastName() != null && !person.getLastName().toLowerCase().contains(query.getLastName().toLowerCase())) {
                 return false;
             }
 
-            if(query.getEmail() != null && !person.getEmail().toLowerCase().contains(query.getEmail().toLowerCase())) {
+            if (query.getEmail() != null && !person.getEmail().toLowerCase().contains(query.getEmail().toLowerCase())) {
                 return false;
             }
 
-            if(query.getPhone() != null && !person.getPhone().toLowerCase().contains(query.getPhone().toLowerCase())) {
+            if (query.getPhone() != null && !person.getPhone().toLowerCase().contains(query.getPhone().toLowerCase())) {
                 return false;
             }
 
-            if(query.getCell() != null && !person.getCell().toLowerCase().contains(query.getCell().toLowerCase())) {
+            if (query.getCell() != null && !person.getCell().toLowerCase().contains(query.getCell().toLowerCase())) {
                 return false;
             }
 
@@ -59,23 +43,8 @@ public class PersonReposity implements RepositoryI<Person> {
     }
 
     @Override
-    public Optional<Person> update(Person query, Person entity) {
-        Optional<Person> person = findOne(query);
-
-        if(person.isPresent()) {
-            person.get().setName(entity.getName());
-            person.get().setLastName(entity.getLastName());
-            person.get().setEmail(entity.getEmail());
-            person.get().setPhone(entity.getPhone());
-            person.get().setCell(entity.getCell());
-        }
-
-        return person;
-    }
-
-    @Override
     public Optional<Person> findOne(Person query) {
-        return persons.stream().filter(person -> {
+        return super.entities.stream().filter(person -> {
             if (query.getId() != null && !query.getId().equals(person.getId())) {
                 return false;
             }

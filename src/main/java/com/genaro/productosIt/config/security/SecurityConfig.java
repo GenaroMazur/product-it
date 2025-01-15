@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(HttpMethod.POST, "/products/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/products/**").hasRole("USER")
+                                .requestMatchers(HttpMethod.GET, "/products/**").authenticated()
                                 .requestMatchers("/persons/**").hasRole("ADMIN")
                                 .anyRequest().denyAll()
                 )

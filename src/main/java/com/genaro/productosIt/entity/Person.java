@@ -3,11 +3,7 @@ package com.genaro.productosIt.entity;
 import lombok.Data;
 
 @Data
-public class Person {
-    static private Long idCounter = 0L;
-    static public Long getNewId(){
-        return idCounter++;
-    }
+public class Person extends AbstractEntity{
 
     private Long id;
     private String name;
