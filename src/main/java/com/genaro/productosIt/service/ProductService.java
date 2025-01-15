@@ -30,10 +30,14 @@ public class ProductService {
         Product query = new Product();
         query.setId(id);
 
-        return productRepository.updateOne(query, product).orElseThrow(ResourceNotFoundException::new);
+        return productRepository.update(query, product).orElseThrow(ResourceNotFoundException::new);
     }
 
     public void deleteProduct(Long id) {
-        productRepository.deleteOne(id);
+        Product query = new Product();
+
+        query.setId(id);
+
+        productRepository.delete(query);
     }
 }

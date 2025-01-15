@@ -35,6 +35,7 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers(HttpMethod.POST, "/products/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/products/**").hasRole("USER")
+                                .requestMatchers("/persons/**").hasRole("ADMIN")
                                 .anyRequest().denyAll()
                 )
                 .httpBasic(Customizer.withDefaults())
@@ -63,13 +64,11 @@ public class SecurityConfig {
 
         users.add(User.withUsername("user")
                 .password("password")
-                .authorities("read")
                 .roles("USER")
                 .build());
 
         users.add(User.withUsername("admin")
                 .password("password")
-                .authorities("write")
                 .roles("ADMIN")
                 .build());
 

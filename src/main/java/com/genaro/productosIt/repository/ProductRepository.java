@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
-public class ProductRepository {
+public class ProductRepository implements RepositoryI<Product> {
     private final ArrayList<Product> products = new ArrayList<>();
 
     public ArrayList<Product> find(Product query) {
@@ -55,7 +55,7 @@ public class ProductRepository {
         return product;
     }
 
-    public Optional<Product> updateOne(Product query, Product product) {
+    public Optional<Product> update(Product query, Product product) {
 
         Product productToUpdate = findOne(query).orElse(null);
 
@@ -70,9 +70,9 @@ public class ProductRepository {
         return Optional.empty();
     }
 
-    public void deleteOne(Long id) {
+    public void delete(Product entity) {
 
-        products.removeIf(product -> product.getId().equals(id));
+        products.removeIf(product -> product.getId().equals(entity.getId()));
     }
 
 }
